@@ -130,6 +130,8 @@ All future workspaces launched will set the env Vars for all bash terminals open
 
 You can also set env vars in the `gitpod.yml` but this can only contain non-sensitive env vars.
 
+## AWS 
+
 #### AWS cli Installation
 
 AWS CLI is installed for the project via bash script [./bin/install_aws_cli.sh](./bin/install_aws_cli.sh)
@@ -154,7 +156,24 @@ If the identity call is successful, it should return a json like this:
 
 We will need to generate AWS user credentials from IAM user in order to use the AWS cli
 
-## Terraform Basic 
+#### AWS S3 bucket
+
+The S3 bucket is s simple storage service by AWS. The idea is to create a random bucket name by the Terraform resource. AWS has restrictions on the naming of S3 buckets such as the name not including _uppercase_ characters etc. [S3 naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)
+
+Initially our random bucket name had _uppercase_ characters and threw an error whiles creating the bucket. We had to specify the _uppercase_ and _lowercase_ options in the json like so:
+
+```json
+resource "random_string" "bucket_name" {
+  lower   = true
+  upper   = false
+  length  = 32
+  special = false
+}
+
+```
+With this, the random S3 bucket name did not have a uppercase and the creation was successful
+
+## Terraform Basics
 
 ### Terraform Registry
 
@@ -216,3 +235,29 @@ This file contains sensitive data and if you lose the file, you lose knowing the
 
 `.terraform` directory contains the binaries for the terraform providers.
 
+#### Issues with Terraform Cloud Login and Gitpod Workaround
+
+The steps:
+- Login to the [Terraform Cloud](https://app.terraform.io/session) login page
+- Set up an `organisation`, `Project` and a `workspace`
+- Select to connect through CLI
+- copy the configuration json into main.tf in Gitpod, the resources section
+- Run `terraform login` and pres `P` to print the extended information
+- A [token weblink](https://app.terraform.io/app/settings/tokens?source=terraform-login) will display. open in a new tab and copy it.
+- When the prompt requests for the token, **right click** to past. _The token will not show_.
+- Thats where @Andrew Brown had an issue. This is how He worked around it:
+
+> Create the config file manually by this command:
+```sh
+$ vi /home/gitpod/.terraform.d/credentials.tfrc.json
+```
+Copy and paste this snippet and fill in the token.
+```json
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "!@#$%^&^%$#@FQ.atlasv1.VievXqyn2LiLXVTWMcSb1NNTAuFhrEhvy5USqhnIUjFy8ymqOSB5I6kSadExampleToken"
+    }
+  }
+}
+```
