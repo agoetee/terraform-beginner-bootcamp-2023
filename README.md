@@ -75,7 +75,7 @@ source ./bin/install_terraform_CLI.sh
 ```
  [Execute without execute permission ($source..)](https://www.baeldung.com/linux/run-not-executable-script)
 
-### Github Lifecycle (Before, Init, Command)
+### Gitpod Lifecycle (Before, Init, Command)
 
 We need to be careful when using the Init because it will not rerun if we start an existing workspace
 
@@ -261,3 +261,26 @@ Copy and paste this snippet and fill in the token.
   }
 }
 ```
+
+We have automated the workaround issue with the following bash script: [/bin/generate_tfrc_credential.sh](/bin/generate_tfrc_credential.sh)
+
+Since the bash script is used on start-up, the `.gitpod.yaml` file was updated in the following areas:
+
+```yml
+ before: |
+      source ./bin/install_terraform_CLI.sh
+      source ./bin/generate_tfrc_credential.sh
+```
+
+## Git and Github Action (stash), Forgetting to create an issue
+
+When we forgot to create the **issue** and a **branch** to be working on, we worked mainly in the main and therefore followed the following procedure to create an issue and branch midway to push the code through it.
+At the point you remember, 
+
+- `git add .`
+- `git stash save`
+- Create the **issue** and **branch** from Github
+- `git fetch`
+- `git checkout <new branch>`
+- `git pull`
+- `git stash apply`
