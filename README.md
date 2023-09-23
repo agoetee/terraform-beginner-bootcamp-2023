@@ -271,6 +271,14 @@ Since the bash script is used on start-up, the `.gitpod.yaml` file was updated i
       source ./bin/install_terraform_CLI.sh
       source ./bin/generate_tfrc_credential.sh
 ```
+#### Terraform to tf alias
+We had to reduce the longer 'terraform' to a shorter 'tf' and created a script to do this.
+Aliases are placed in the `bash_profile` file. [Info here](https://phoenixnap.com/kb/bashrc-vs-bash-profile#:~:text=bash_profile-,The%20.,in%20Bash%20interactive%20login%20shells.)
+
+Asked Chatgpt the following:
+`write a bash script that will alias tf to terraform to the .bash_profile`
+
+Then an executable file was created in the bin folder and then updated in the `gitpod.yml` file
 
 ## Git and Github Action (stash), Forgetting to create an issue
 
