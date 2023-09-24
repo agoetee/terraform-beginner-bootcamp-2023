@@ -5,30 +5,32 @@
   * [Considerations with the Terraform changes](#considerations-with-the-terraform-changes)
   * [Considerations for Linux Distributions](#considerations-for-linux-distributions)
   * [Refactoring into Bash Script](#refactoring-into-bash-script)
-    + [Linux permission & Execution Considerations](#linux-permission---execution-considerations)
+    + [Linux permission Execution Considerations](#linux-permission-execution-considerations)
     + [Execute without execute permission](#execute-without-execute-permission)
-  * [Gitpod Lifecycle (Before, Init, Command)](#gitpod-lifecycle--before--init--command-)
-  * [Working with Environment Variables](#working-with-environment-variables)
-    + [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
-    + [Printing Env Vars](#printing-env-vars)
-    + [Scoping of Env Vars](#scoping-of-env-vars)
+- [Gitpod Lifecycle (Before, Init, Command)](#gitpod-lifecycle-before-init-command)
+- [Working with Environment Variables](#working-with-environment-variables)
+  * [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
+  * [Printing Env Vars](#printing-env-vars)
+  * [Scoping of Env Vars](#scoping-of-env-vars)
   * [Persisting Env Vars in Gitpod](#persisting-env-vars-in-gitpod)
 - [AWS](#aws)
-    + [AWS cli Installation](#aws-cli-installation)
-    + [AWS S3 bucket](#aws-s3-bucket)
+  * [AWS cli Installation](#aws-cli-installation)
+  * [AWS S3 bucket](#aws-s3-bucket)
 - [Terraform Basics](#terraform-basics)
   * [Terraform Registry](#terraform-registry)
-    + [Terraform Console](#terraform-console)
-    + [Terraform Init](#terraform-init)
-    + [Terraform plan](#terraform-plan)
-    + [Terraform apply](#terraform-apply)
-    + [Terraform Destroy](#terraform-destroy)
-    + [Terraform Lock Files](#terraform-lock-files)
-    + [Terraform State File](#terraform-state-file)
-    + [Terraform Directory](#terraform-directory)
-    + [Issues with Terraform Cloud Login and Gitpod Workaround](#issues-with-terraform-cloud-login-and-gitpod-workaround)
-    + [Terraform to tf alias](#terraform-to-tf-alias)
-- [Git and Github Action (stash), Forgetting to create an issue](#git-and-github-action--stash---forgetting-to-create-an-issue)
+  * [Terraform Console](#terraform-console)
+  * [Terraform Init](#terraform-init)
+  * [Terraform plan](#terraform-plan)
+  * [Terraform apply](#terraform-apply)
+  * [Terraform Destroy](#terraform-destroy)
+  * [Terraform Lock Files](#terraform-lock-files)
+  * [Terraform State File](#terraform-state-file)
+  * [Terraform Directory](#terraform-directory)
+  * [Issues with Terraform Cloud Login and Gitpod Workaround](#issues-with-terraform-cloud-login-and-gitpod-workaround)
+  * [Terraform to tf alias](#terraform-to-tf-alias)
+- [Git and Github Action (stash), Forgetting to create an issue](#git-and-github-action-stash-forgetting-to-create-an-issue)
+
+
 
 
 ## Semantic Versioning 
@@ -87,7 +89,7 @@ The bash script file is located here: [./bin/install_terraform_CLI](./bin/instal
 - This will allow an easier way to debud and execute manually Terraform CLI installs
 - This will allow better portability for other projects that need to install Terraform CLI
  
- #### Linux permission & Execution Considerations
+ #### Linux permission Execution Considerations
  
  After the shell script have been finalized, the file permisions need to be set to make it executable.
  Generally starts with the `chmod` command followed by the permission and file name. 
@@ -106,19 +108,19 @@ source ./bin/install_terraform_CLI.sh
 ```
  [Execute without execute permission ($source..)](https://www.baeldung.com/linux/run-not-executable-script)
 
-### Gitpod Lifecycle (Before, Init, Command)
+## Gitpod Lifecycle (Before, Init, Command)
 
 We need to be careful when using the Init because it will not rerun if we start an existing workspace
 
  [Gitpod Workspaces[entire tab]](https://www.gitpod.io/docs/configure/workspaces/workspace-lifecycle)
 
-### Working with Environment Variables
+## Working with Environment Variables
 
 We can list out all the environment variables(env vars) using the `env` command
 
 We can filter specific env vars with the `grep` command. eg `env | grep ROOT`
 
-#### Setting and Unsetting Env Vars
+### Setting and Unsetting Env Vars
 
 In the terminal, we can set using ```$ export HELLO='Ghana'```
 
@@ -139,11 +141,11 @@ HELLO='Ghana'
 echo $HELLO
 ```
 
-#### Printing Env Vars
+### Printing Env Vars
 
 We can print an env var using echo. Example `echo $HELLO`
 
-#### Scoping of Env Vars
+### Scoping of Env Vars
 
 When you open new bash terminals in VSCode it will not be aware of other env vars you have already set in other windows.
 
@@ -163,7 +165,7 @@ You can also set env vars in the `gitpod.yml` but this can only contain non-sens
 
 ## AWS 
 
-#### AWS cli Installation
+### AWS cli Installation
 
 AWS CLI is installed for the project via bash script [./bin/install_aws_cli.sh](./bin/install_aws_cli.sh)
 
@@ -187,7 +189,7 @@ If the identity call is successful, it should return a json like this:
 
 We will need to generate AWS user credentials from IAM user in order to use the AWS cli
 
-#### AWS S3 bucket
+### AWS S3 bucket
 
 The S3 bucket is s simple storage service by AWS. The idea is to create a random bucket name by the Terraform resource. AWS has restrictions on the naming of S3 buckets such as the name not including _uppercase_ characters etc. [S3 naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html)
 
@@ -215,15 +217,15 @@ Terraform sources their _providers_ and _modules_ from Terraform registry which 
 
 [Random Terraform Provider](https://registry.terraform.io/providers/hashicorp/random/latest)
 
-#### Terraform Console
+### Terraform Console
 
 We can see a lost of all the terraform commands by simply typing `terraform` on the command line.
 
-#### Terraform Init
+### Terraform Init
 
 At the start of every Terraform project we run `terraform init` to download the binaries for the terraform providers that we will use in the project.
 
-#### Terraform plan 
+### Terraform plan 
 
 `terraform plan`
 
@@ -232,7 +234,7 @@ This will generate out a changeset, about the state of our infrastructure and wh
 We can output this changeset ie. plan to be passed to an apply, but often you can just ignore outputting.
 
 
-#### Terraform apply
+### Terraform apply
 
 `terraform apply`
 
@@ -240,19 +242,19 @@ This will run a plan and pass the changeset to be executed by terraform. Apply s
 
 If we want to automatically approve an apply, we can provide the auto-approve flag eg. `terraform apply --auto-approve`.
 
-#### Terraform Destroy
+### Terraform Destroy
 `terraform destroy`
 This will destroy resources that has been effected by the terraform apply command.
 
 You can use the auto approve flag to skip the skip the approve prompt eg `terraform destroy --auto-approve`
 
-#### Terraform Lock Files
+### Terraform Lock Files
 
 `.terraform.lock.hcl` contains the locked versioning for the providers or modules that should ne used for the project.
 
 The terraform lock file **should be committed** to the Version Control Sustem (VCS) eg. Github.
 
-#### Terraform State File
+### Terraform State File
 
 `terraform.tfstate` contains information about the current state of your infrastructure.
 
@@ -262,11 +264,11 @@ This file contains sensitive data and if you lose the file, you lose knowing the
 
 `terraform.tfstate.backup` is the previous state file state.
 
-#### Terraform Directory
+### Terraform Directory
 
 `.terraform` directory contains the binaries for the terraform providers.
 
-#### Issues with Terraform Cloud Login and Gitpod Workaround
+### Issues with Terraform Cloud Login and Gitpod Workaround
 
 The steps:
 - Login to the [Terraform Cloud](https://app.terraform.io/session) login page
@@ -302,7 +304,7 @@ Since the bash script is used on start-up, the `.gitpod.yaml` file was updated i
       source ./bin/install_terraform_CLI.sh
       source ./bin/generate_tfrc_credential.sh
 ```
-#### Terraform to tf alias
+### Terraform to tf alias
 We had to reduce the longer 'terraform' to a shorter 'tf' and created a script to do this.
 Aliases are placed in the `bash_profile` file. [Info here](https://phoenixnap.com/kb/bashrc-vs-bash-profile#:~:text=bash_profile-,The%20.,in%20Bash%20interactive%20login%20shells.)
 
