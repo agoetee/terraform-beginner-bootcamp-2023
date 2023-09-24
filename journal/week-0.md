@@ -7,7 +7,7 @@
   * [Refactoring into Bash Script](#refactoring-into-bash-script)
     + [Linux permission Execution Considerations](#linux-permission-execution-considerations)
     + [Execute without execute permission](#execute-without-execute-permission)
-- [Gitpod Lifecycle (Before, Init, Command)](#gitpod-lifecycle-before-init-command)
+- [Gitpod Lifecycle)](#gitpod-lifecycle)
 - [Working with Environment Variables](#working-with-environment-variables)
   * [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
   * [Printing Env Vars](#printing-env-vars)
@@ -28,7 +28,7 @@
   * [Terraform Directory](#terraform-directory)
   * [Issues with Terraform Cloud Login and Gitpod Workaround](#issues-with-terraform-cloud-login-and-gitpod-workaround)
   * [Terraform to tf alias](#terraform-to-tf-alias)
-- [Git and Github Action (stash), Forgetting to create an issue](#git-and-github-action-stash-forgetting-to-create-an-issue)
+- [Git and Github stash](#git-and-github-stash)
 
 
 
@@ -108,7 +108,7 @@ source ./bin/install_terraform_CLI.sh
 ```
  [Execute without execute permission ($source..)](https://www.baeldung.com/linux/run-not-executable-script)
 
-## Gitpod Lifecycle (Before, Init, Command)
+## Gitpod Lifecycle
 
 We need to be careful when using the Init because it will not rerun if we start an existing workspace
 
@@ -313,7 +313,7 @@ Asked Chatgpt the following:
 
 Then an executable file was created in the bin folder and then updated in the `gitpod.yml` file
 
-## Git and Github Action (stash), Forgetting to create an issue
+## Git and Github stash
 
 When we forgot to create the **issue** and a **branch** to be working on, we worked mainly in the main and therefore followed the following procedure to create an issue and branch midway to push the code through it.
 At the point you remember, 
