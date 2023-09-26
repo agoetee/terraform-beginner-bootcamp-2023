@@ -4,7 +4,7 @@
 
 The root module structure is as follows:
 
-```bash
+```
 PROJECT_ROOT
 ├── main.tf        - the primary entry point
 ├── variables.tf   - contains variables and should be described in a sentence or two
