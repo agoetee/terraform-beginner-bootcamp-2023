@@ -64,3 +64,26 @@ Terraform automatically loads variables in the file `.auto.tfvar`. It is a convi
 - The terraform.tfvars or *auto.tfvars file, if present. Terraform automatically loads variables from this files. Values here override defaults but are overridden by environmental variables
 - The Command line option -vars. - whiles runnung the `terraform apply` or `terraform run` commands. values here override both those in .tfvars and environment variables.
 - Variable Defaults in the Configuration: If no value is provided via environment variables, files, or command-line options, Terraform uses the default value specified in the variable declaration within the Terraform configuration file
+
+## Dealing with Configuration Drift
+
+### What happens if you loose your state file
+
+If you lose your state file, you most likely have to tear down your cloud infrastructure manually.
+
+You can use terraform import but it wont work for all cloud resources. You need to check the terraform providers documentation for which resources support imports.
+
+### Fix missing resources with Terraform 
+
+```
+# terraform import aws_s3_bucket.bucket bucket-name
+```
+[Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+
+[AWS S3 bucket import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#import)
+
+### Fix manual Configuration
+
+If someone deletes or modifies cloud resources manually.
+
+If we run terraform run, it will attempt to put our infrastructure back to the expected state fixing the Configuration Drift.
