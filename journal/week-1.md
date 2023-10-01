@@ -87,3 +87,45 @@ You can use terraform import but it wont work for all cloud resources. You need 
 If someone deletes or modifies cloud resources manually.
 
 If we run terraform run, it will attempt to put our infrastructure back to the expected state fixing the Configuration Drift.
+
+### Fix Using Terraform Refresh
+
+```sh
+terraform apply -refresh-only -auto-approve
+```
+
+
+## Terraform Modules
+
+### Terraform Modules Structure
+
+It is recommended to place modules in a `modules` directory when developing local modules, but can be named whatever
+
+### Passing Input Variables
+
+We can pass input variables to our module. The module has to declare the terraform variables in its own variables.tf file.
+
+```t
+module "terrahouse_aws" {
+    sousource = "./modules/terrahouse_aws"
+    bucket_name = var.bucket_name
+    user_uuid = var.user_uuid
+}
+
+```
+
+### Module Sources
+
+Using the source, we can import the the module from various places. eg. 
+> github
+> AWS storage
+> local paths
+> etc
+
+```t
+module "terrahouse_aws" {
+    sousource = "./modules/terrahouse_aws"
+}
+
+```
+[](https://developer.hashicorp.com/terraform/language/modules/sources)
