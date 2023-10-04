@@ -128,4 +128,43 @@ module "terrahouse_aws" {
 }
 
 ```
-[](https://developer.hashicorp.com/terraform/language/modules/sources)
+[Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+## Considerations when using ChatGPT to write Terraform
+
+LLM's such as ChatGPT may not be trained on the latest documentation or information about terraform.
+
+It may likely produce older examples that could be deprecated, oftern affecting providers.
+
+## Working with Files in Terraform
+
+### Fileexist Function
+
+```js
+validation {
+  condition     = can(fileexists(var.index_html_filepath))
+  error_message = "The specified file does not exist. Please provide a valid filepath."
+}
+
+```
+
+### filemd5 - [Built in functions](https://developer.hashicorp.com/terraform/language/functions)
+
+
+[](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+
+### Values in the Filesystem
+
+- `path.module` is the path of the module where the expression is placed. 
+- `path.root` is the filesystem path of the root module of the configuration.
+
+[Special Path Variables](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
+
+```t
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.terrahouse_website.bucket
+  key    = "index.html"
+  source = "${path.root}/public/index.html"
+  etag = filemd5("${path.root}/public/index.html")
+}
+```
