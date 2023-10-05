@@ -35,3 +35,13 @@ variable "error_html_filepath" {
     error_message = "The specified file does not exist. Please provide a valid filepath."
   }
 }
+
+variable "content_version" {
+  description = "Positive integer representing content version"
+  type        = number
+
+  validation {
+    condition     = can(regex("^[1-9][0-9]*$", tostring(var.content_version)))
+    error_message = "content_version must be a positive integer starting at 1."
+  }
+}
