@@ -241,3 +241,77 @@ we use the jsonencode to create the json policy in the hcl.
 Plain data values such as Local Values and Input Variables don't have any side-effects to plan against and so they aren't valid in replace_triggered_by. You can use terraform_data's behavior of planning an action each time input changes to indirectly use a plain value to trigger replacement.
 
 [terraform_data Managed Resource](https://developer.hashicorp.com/terraform/language/resources/terraform-data)
+
+## Provisioners
+
+Provisioners allow you to execute commands on compute instances eg AWS CLI command
+
+They are not recommended for use by Harshicorp because Configuration Management tools like Ansible are a better fit but the functionality exists.
+
+[Provisioners](https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax)
+
+### Local-exec
+
+This will execute commands on the machine running the commands eg plan, apply
+
+[Local exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec)
+
+```js
+resource "aws_instance" "web" {
+  # ...
+
+  provisioner "local-exec" {
+    command = "echo The server's IP address is ${self.private_ip}"
+  }
+}
+```
+
+### Remote-exec
+
+This will execute commands on the machine you target. You will need to provide credentials such as ssh to log into the machine
+
+[Remote exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+
+```js
+resource "aws_instance" "web" {
+  # ...
+
+  # Establishes connection to be used by all
+  # generic remote provisioners (i.e. file/remote-exec)
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "puppet apply",
+      "consul join ${aws_instance.web.private_ip}",
+    ]
+  }
+}
+
+```
+
+### Multi line Codeblock
+
+The multi-line syntax did not work for the local Exec provisioning  as shown in this code snippet:
+
+```js
+provisioner "local-exec" {
+  command = <<COMMAND
+aws cloudfront create-invalidation \
+--distribution-id ${aws_cloudfront_distribution.s3_distribution.id} \
+--paths '/*'
+COMMAND
+}
+```
+The correct syntax that worked was the single line :
+
+```js
+provisioner "local-exec" {
+  command = "aws cloudfront create-invalidation --distribution-id ${aws_cloudfront_distribution.s3_distribution.id} --paths '/*'"
+}
+```
