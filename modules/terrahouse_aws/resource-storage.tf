@@ -38,6 +38,15 @@ resource "aws_s3_object" "index_html" {
   }
 }
 
+resource "aws_s3_object" "upload_assets" {
+  for_each = fileset(var.assets_path,"*{.jpg,.png}")
+  bucket = aws_s3_bucket.terrahouse_website.bucket
+  key    = "assets/${each.key}"
+  source = "var.assets_path/${each.key}"
+  #content_type = "text/html"
+  etag = filemd5("var.assets_path/${each.key}")
+}
+
 resource "aws_s3_object" "error_html" {
   bucket = aws_s3_bucket.terrahouse_website.bucket
   key    = "error.html"
@@ -80,3 +89,5 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 resource "terraform_data" "content_version" {
   input = var.content_version  
 }
+
+# fileset("${path.root}/public/assets","*{.jpg,.png}")
