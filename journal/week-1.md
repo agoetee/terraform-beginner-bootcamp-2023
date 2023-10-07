@@ -315,3 +315,18 @@ provisioner "local-exec" {
   command = "aws cloudfront create-invalidation --distribution-id ${aws_cloudfront_distribution.s3_distribution.id} --paths '/*'"
 }
 ```
+
+## For Each Expressions
+
+For and For_each allows us to enumerate over complex data types
+
+```s
+[for s in var.list : upper(s) if s != ""]
+```
+
+This is mostly useful whiles creating multiples of cloud resources. And yu want to reduce the amount of terraform code
+
+- [For Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)
+
+- [For_each Expression](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)
+
