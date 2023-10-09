@@ -330,3 +330,15 @@ This is mostly useful whiles creating multiples of cloud resources. And yu want 
 
 - [For_each Expression](https://developer.hashicorp.com/terraform/language/meta-arguments/for_each)
 
+## Interpolation Syntax
+
+In Interpolation syntax, text is wrapped in `${}`, such as `${var.foo}`. The interpolation syntax is powerful and allows you to reference variables, attributes of resources, call functions, etc.
+
+It was used at the `.../modules/terrahouse/resource-storage.tf` file to refer to the source of the `./public/assets/` folder. 
+
+```s
+ source = "${var.assets_path}${each.key}"
+  etag = filemd5("${var.assets_path}${each.key}")
+```
+
+[Interpolation Syntax](https://www.koding.com/docs/terraform/configuration/interpolation.html/#:~:text=The%20interpolation%20syntax%20is%20powerful,index%20%2B%201%7D%20.)
