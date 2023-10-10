@@ -23,13 +23,7 @@ class Home
   # home.town() #getter
   attr_accessor :town, :name, :description, :domain_name, :content_version
 
-  validates :town, presence: true, { in: [
-    'melomaniac-mansion',
-    'cooker-cove',
-    'video-valley',
-    'the-nomad-pad',
-    'gamers-grotto'
-  ]}
+  validates :town, presence: true
   #visible to all users
   validates :name, presence: true
   #visible to all users
@@ -207,8 +201,10 @@ class TerraTownsMockServer < Sinatra::Base
       error 404, "failed to find home with provided uuid and bearer token"
     end
 
+    # delete from mock database
+    uuid = $home[:uuid]
     $home = {}
-    { message: "House deleted successfully" }.to_json
+    { uuid: uuid }.to_json
   end
 end
 
