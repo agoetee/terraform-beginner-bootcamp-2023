@@ -5,20 +5,47 @@ require 'active_model'
 
 $home = {}
 
+#This is a ruby class that includes validations for ActiveRecord.
+#This will represent our Home resources as a ruby object
 class Home
+  #ActiveModel is part of Ruby on Rails
+  #It is used as an ORM. It has a module within ActiveModel
+  #That provides validations. The production Terratowns server is rails and uses 
+  #very similar and most cases identical validation
+  #https://guides.rubyonrails.org/active_model_basics.html
+  #https://guides.rubyonrails.org/active_record_validations.html
   include ActiveModel::Validations
+
+  # create some virtual attributes to store on the object
+  # This will set the getter and setter. eg
+  # home = new Home()
+  # home.town = 'hello' # setter
+  # home.town() #getter
   attr_accessor :town, :name, :description, :domain_name, :content_version
 
-  validates :town, presence: true
+  validates :town, presence: true, { in: [
+    'melomaniac-mansion',
+    'cooker-cove',
+    'video-valley',
+    'the-nomad-pad',
+    'gamers-grotto'
+  ]}
+  #visible to all users
   validates :name, presence: true
+  #visible to all users
   validates :description, presence: true
+  #Lock this to only be from cloudfront
   validates :domain_name, 
     format: { with: /\.cloudfront\.net\z/, message: "domain must be from .cloudfront.net" }
     # uniqueness: true, 
 
+    #content version has to be an integer
+    # we will make sure it an incremental version in the controller
   validates :content_version, numericality: { only_integer: true }
 end
 
+#Extending the class from Sinatra::Base to turn this 
+# generic class to utilize the sinatra web-framework
 class TerraTownsMockServer < Sinatra::Base
 
   def error code, message
@@ -69,8 +96,8 @@ class TerraTownsMockServer < Sinatra::Base
 
   # CREATE
   post '/api/u/:user_uuid/homes' do
-    ensure_correct_headings
-    find_user_by_bearer_token
+    ensure_correct_headings()
+    find_user_by_bearer_token()
     puts "# create - POST /api/homes"
 
     begin
@@ -185,4 +212,5 @@ class TerraTownsMockServer < Sinatra::Base
   end
 end
 
+# This will run the server
 TerraTownsMockServer.run!
