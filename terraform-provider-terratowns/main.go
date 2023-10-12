@@ -61,11 +61,14 @@ func Provider() *schema.Provider {
 }
 
 func validateUUID(v interface{}, k string)(ws []string, errors []error) {
+
 	log.Print("validateUUID:start")
+
 	value := v.(string)
 	if _, err := uuid.Parse(value); err != nil {
 		errors = append(errors, fmt.Errorf("invali UUID format"))
 	}
+  
 	log.Print("validateUUID:end")
 	return
 }
@@ -90,6 +93,7 @@ func Resource() *schema.Resource {
 		ReadContext: resourceHouseRead,
 		UpdateContext: resourceHouseUpdate,
 		DeleteContext: resourceHouseDelete,
+
 		Schema: map[string]*schema.Schema{
 			"name": {
 				Type: schema.TypeString,
@@ -117,12 +121,14 @@ func Resource() *schema.Resource {
 				Description: "The content version of the home",
 			},
 		},
+
 	}
 	log.Print("Resource:start")
 	return resource
 }
 
 func resourceHouseCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics{
+
 	log.Print("resourceHouseCreate:start")
 	var diags diag.Diagnostics
 
@@ -226,10 +232,12 @@ func resourceHouseRead(ctx context.Context, d *schema.ResourceData, m interface{
 	}
 
 	log.Print("resourceHouseRead:end")
+
 	return diags
 }
 
 func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics{
+
 	log.Print("resourceHouseUpdate:start")
 	var diags diag.Diagnostics
 
@@ -283,10 +291,12 @@ func resourceHouseUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 	d.Set("name",payload["name"])
 	d.Set("description",payload["description"])
 	d.Set("content_version",payload["content_version"])
+
 	return diags
 }
 
 func resourceHouseDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics{
+
 	log.Print("resourceHouseDelete:start")
 	var diags diag.Diagnostics
 
@@ -322,5 +332,6 @@ func resourceHouseDelete(ctx context.Context, d *schema.ResourceData, m interfac
 	d.SetId("")
 
 	log.Print("resourceHouseDelete:end")
+
 	return diags
 }
