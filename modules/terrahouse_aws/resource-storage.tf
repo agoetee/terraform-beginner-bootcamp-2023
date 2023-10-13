@@ -1,7 +1,9 @@
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket
 resource "aws_s3_bucket" "terrahouse_website" {
-  bucket = var.bucket_name
+  # bucket = var.bucket_name
+  
+  # Bucket naming Rules
   # https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
 
   tags = {
