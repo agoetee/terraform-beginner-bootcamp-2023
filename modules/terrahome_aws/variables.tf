@@ -16,20 +16,6 @@ variable "user_uuid" {
 #  }
 #}
 
-variable "roadrash" {
-  description = "The file path for the public directory"
-  type        = string
-}
-variable "food_ghana" {
-  description = "The file path for the public directory"
-  type        = string
-}
-
-variable "visit_ghana" {
-  description = "The file path for the public directory"
-  type        = string
-}
-
 variable "public_path" {
   description = "The file path for the public directory"
   type        = string

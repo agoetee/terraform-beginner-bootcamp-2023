@@ -29,3 +29,8 @@ variable "visit_ghana" {
     content_version = number
   })
 }
+
+variable "content_version" {
+  description = "Positive integer representing content version"
+  type        = number
+}

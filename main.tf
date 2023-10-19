@@ -28,7 +28,7 @@ module "home_roadrash" {
   content_version = var.content_version
 }
 
-resource "terratowns_home" "home" {
+resource "terratowns_home" "RoadRash" {
   name = "Road Rash"
   description = <<DESCRIPTION
   RoadRash is a MotorBike game of voilence. There are multiple players and each has his special
@@ -39,7 +39,7 @@ The roads themselves feature brief divided road sections.
 DESCRIPTION
   domain_name = module.home_roadrash.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "gamers-grotto"
+  town = "missingo"
   content_version = var.roadrash.content_version
 }
 
@@ -47,11 +47,11 @@ module "home_visit_ghana" {
   source = "./modules/terrahome_aws"
 #  bucket_name = var.bucket_name
   user_uuid = var.teacherseat_user_uuid
-  public_path = var.visit_ghana_public_path
+  public_path = var.visit_ghana.public_path
   content_version = var.visit_ghana.content_version
 }
 
-resource "terratowns_home" "about" {
+resource "terratowns_home" "Visit_Ghana" {
   name = "Visit Ghana"
   description = <<DESCRIPTION
   The tourism industry in Ghana is known to promote sustainable tourism that includes: cultural tourism, heritage tourism,
@@ -62,17 +62,17 @@ DESCRIPTION
 
   domain_name = module.home_visit_ghana.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "the-nomad-pad"
+  town = "missingo"
   content_version = var.visit_ghana.content_version
 }
 module "home_food_ghana" {
   source = "./modules/terrahome_aws"
 #  bucket_name = var.bucket_name
   user_uuid = var.teacherseat_user_uuid
-  public_path = var.food_ghana_public_path
+  public_path = var.food_ghana.public_path
   content_version = var.food_ghana.content_version
 }
-resource "terratowns_home" "here" {
+resource "terratowns_home" "Food_Ghana" {
   name = "Food Ghana"
   description = <<DESCRIPTION
   The main dishes of Ghana are organized around starchy staple foods, which goes with either sauce or soup accompanied 
@@ -82,6 +82,6 @@ DESCRIPTION
 
   domain_name = module.home_food_ghana.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "cooker-cove"
+  town = "missingo"
   content_version = var.food_ghana.content_version
 }
