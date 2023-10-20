@@ -16,24 +16,9 @@ variable "user_uuid" {
 #  }
 #}
 
-variable "index_html_filepath" {
-  description = "Filepath to the index.html file"
+variable "public_path" {
+  description = "The file path for the public directory"
   type        = string
-
-  validation {
-    condition     = can(fileexists(var.index_html_filepath))
-    error_message = "The specified file does not exist. Please provide a valid filepath."
-  }
-}
-
-variable "error_html_filepath" {
-  description = "Filepath to the error.html file"
-  type        = string
-
-  validation {
-    condition     = can(fileexists(var.error_html_filepath))
-    error_message = "The specified file does not exist. Please provide a valid filepath."
-  }
 }
 
 variable "content_version" {
@@ -44,9 +29,4 @@ variable "content_version" {
     condition     = can(regex("^[1-9][0-9]*$", tostring(var.content_version)))
     error_message = "content_version must be a positive integer starting at 1."
   }
-}
-
-variable "assets_path" {
-  description = "Path to assets folder"
-  type = string
 }

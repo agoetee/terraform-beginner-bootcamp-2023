@@ -54,3 +54,10 @@ Terraform provider resource utilize CRUD.
 CRUD stands for Create, Read, Update and Delete
 
 [CRUD Wikipedia](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete#:~:text=In%20computer%20programming%2C%20create%2C%20read,computer%2Dbased%20forms%20and%20reports.)
+
+## Nested Variables in .tfvars
+
+It is possible to nest the variables for a particular house in the `.tfvars` file 
+```
+
+```
