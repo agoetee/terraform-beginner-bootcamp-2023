@@ -55,9 +55,9 @@ resource "aws_s3_object" "error_html" {
   key    = "error.html"
   source = "${var.public_path}/error.html"
   content_type = "text/html"
-
   etag = filemd5("${var.public_path}/error.html")
 }
+
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.terrahouse_website.bucket
