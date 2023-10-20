@@ -67,14 +67,14 @@ resource "aws_s3_object" "error_html" {
   #  ignore_changes = [ etag ]
   #}
 }
-resource "aws_s3_object" "style_css" {
-  bucket = aws_s3_bucket.terrahouse_website.bucket
-  key    = "style.css"
-  source = "${var.public_path}/style.css"
-  content_type = "text/html"
-  etag = filemd5("${var.public_path}/style.css")
-
-}
+#resource "aws_s3_object" "style_css" {
+#  bucket = aws_s3_bucket.terrahouse_website.bucket
+#  key    = "style.css"
+#  source = "${var.public_path}/style.css"
+#  content_type = "text/html"
+#  etag = filemd5("${var.public_path}/style.css")
+#
+#}
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.terrahouse_website.bucket
