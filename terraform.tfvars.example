@@ -1,6 +1,5 @@
 terratowns_endpoint="https://terratowns.cloud/api"
-bucket_name="be187imqqdizbhogpqcp5q4dxpz1s788"
-
+content_version=3
 roadrash = {
     public_path="/workspace/terraform-beginner-bootcamp-2023/public/roadrash/"
     content_version=1

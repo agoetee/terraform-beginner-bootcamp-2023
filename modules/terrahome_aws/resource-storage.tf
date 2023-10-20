@@ -30,9 +30,6 @@ resource "aws_s3_object" "index_html" {
   source = "${var.public_path}/index.html"
   content_type = "text/html"
 
-  # The filemd5() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
-  # etag = "${md5(file("path/to/file"))}"
   etag = filemd5("${var.public_path}/index.html")
   lifecycle {
     replace_triggered_by = [ terraform_data.content_version.output ]
@@ -59,22 +56,8 @@ resource "aws_s3_object" "error_html" {
   source = "${var.public_path}/error.html"
   content_type = "text/html"
 
-  # The filemd5() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:
-  # etag = "${md5(file("path/to/file"))}"
   etag = filemd5("${var.public_path}/error.html")
-  #lifecycle {
-  #  ignore_changes = [ etag ]
-  #}
 }
-#resource "aws_s3_object" "style_css" {
-#  bucket = aws_s3_bucket.terrahouse_website.bucket
-#  key    = "style.css"
-#  source = "${var.public_path}/style.css"
-#  content_type = "text/html"
-#  etag = filemd5("${var.public_path}/style.css")
-#
-#}
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.terrahouse_website.bucket

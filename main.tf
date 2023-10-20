@@ -39,7 +39,7 @@ The roads themselves feature brief divided road sections.
 DESCRIPTION
   domain_name = module.home_roadrash.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "missingo"
+  town = "gamers-grotto"
   content_version = var.roadrash.content_version
 }
 
@@ -62,7 +62,7 @@ DESCRIPTION
 
   domain_name = module.home_visit_ghana.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "missingo"
+  town = "the-nomad-pad"
   content_version = var.visit_ghana.content_version
 }
 module "home_food_ghana" {
@@ -82,6 +82,6 @@ DESCRIPTION
 
   domain_name = module.home_food_ghana.domain_name
   #domain_name = "21dewe.cloudfront.net"
-  town = "missingo"
+  town = "cooker-cove"
   content_version = var.food_ghana.content_version
 }
